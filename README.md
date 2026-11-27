@@ -38,6 +38,7 @@ The notebook:
 | Batch size | 256 |
 | Optimizer | AdamW |
 | Learning rate | 0.001 |
+| Learning-rate scheduler | ReduceLROnPlateau on validation loss |
 | Classifier epochs | 20 |
 | Prediction threshold | 0.5 |
 | Random seed | 42 |
@@ -59,7 +60,6 @@ It expects these files:
 train_dataset.csv
 val_dataset.csv
 test_dataset.csv
-sample_submission.csv
 ```
 
 The training and validation files must contain:
@@ -126,8 +126,9 @@ ID, Label
 ## Reproducibility
 
 The experiment sets the NumPy, Python, and PyTorch random seeds to `42`.
-Training Word2Vec only on the training split also helps keep validation and test
-data separate from embedding training.
+Word2Vec is trained only on the training split, keeping validation and test data
+separate from embedding training. Since Word2Vec uses four workers, exact
+bit-for-bit reproducibility is not guaranteed.
 
 ## Repository structure
 
